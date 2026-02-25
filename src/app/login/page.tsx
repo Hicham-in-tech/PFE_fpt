@@ -65,7 +65,7 @@ export default function LoginPage() {
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 z-0 opacity-55 bg-cover bg-center"
-          style={{ backgroundImage: "url('/fpt-building.jpg')" }}
+          style={{ backgroundImage: "url('https://www.drisskettani.com/images/projets-detail/1/1.jpg')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-fpt-blue/70 to-fpt-green/60 z-0" />
         
