@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  TEAM_LEADER
+  COORDINATOR
+  SUPER_ADMIN
+}
+
+enum TeamStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ProjectStatus {
+  OPEN
+  ASSIGNED
+  CLOSED
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  ledTeam          Team?         @relation("TeamLeader")
+  coordinatedTeams Team[]        @relation("CoordinatorTeams")
+  projects         Project[]     @relation("ProjectCreator")
+  observations     Observation[]
+  messages         Message[]
+
+  @@map("users")
+}
+
+model Team {
+  id                 Int        @id @default(autoincrement())
+  teamName           String     @map("team_name")
+  projectName        String     @map("project_name")
+  projectDescription String?    @map("project_description") @db.Text
+  projectLogo        String?    @map("project_logo")
+  leaderId           Int        @unique @map("leader_id")
+  coordinatorId      Int?       @map("coordinator_id")
+  projectId          Int?       @map("project_id")
+  status             TeamStatus @default(PENDING)
+  evaluationScore    Float?     @map("evaluation_score")
+  createdAt          DateTime   @default(now()) @map("created_at")
+
+  // Relations
+  leader       User          @relation("TeamLeader", fields: [leaderId], references: [id])
+  coordinator  User?         @relation("CoordinatorTeams", fields: [coordinatorId], references: [id])
+  project      Project?      @relation(fields: [projectId], references: [id])
+  members      TeamMember[]
+  observations Observation[]
+  messages     Message[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id           Int     @id @default(autoincrement())
+  teamId       Int     @map("team_id")
+  firstName    String  @map("first_name")
+  lastName     String  @map("last_name")
+  cin          String?
+  cne          String?
+  email        String?
+  githubLink   String? @map("github_link")
+  linkedinLink String? @map("linkedin_link")
+  phoneNumber  String? @map("phone_number")
+
+  // Relations
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("team_members")
+}
+
+model Project {
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String?       @db.Text
+  createdBy   Int           @map("created_by")
+  status      ProjectStatus @default(OPEN)
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  // Relations
+  creator User   @relation("ProjectCreator", fields: [createdBy], references: [id])
+  teams   Team[]
+
+  @@map("projects")
+}
+
+model Observation {
+  id            Int      @id @default(autoincrement())
+  teamId        Int      @map("team_id")
+  coordinatorId Int      @map("coordinator_id")
+  message       String   @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Relations
+  team        Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  coordinator User @relation(fields: [coordinatorId], references: [id])
+
+  @@map("observations")
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  teamId    Int      @map("team_id")
+  senderId  Int      @map("sender_id")
+  message   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  team   Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id])
+
+  @@map("messages")
+}
