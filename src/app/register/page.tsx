@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 
-import { GraduationCap, ArrowRight, BookOpen, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Users } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -66,7 +67,7 @@ export default function RegisterPage() {
         <div className="relative z-10 flex flex-col items-center animate-fade-in w-full">
           {/* Big centered logo */}
           <div className="bg-white p-5 rounded-2xl shadow-2xl mb-10 w-fit">
-            <img src="/fpt-logo.png" alt="FPT Logo" className="h-24 w-auto object-contain" />
+            <Image src="/fpt-logo.png" alt="FPT Logo" width={200} height={96} className="h-24 w-auto object-contain" priority />
           </div>
           
           <h2 className="text-4xl font-extrabold leading-tight mb-6 animate-slide-up">
@@ -96,12 +97,12 @@ export default function RegisterPage() {
       <div className="flex-1 flex items-center justify-center p-6 md:p-12 relative">
         {/* Mobile Header */}
         <div className="absolute top-6 left-6 md:hidden flex items-center gap-2">
-          <img src="/fpt-logo.png" alt="FPT Logo" className="h-10 object-contain" />
+          <Image src="/fpt-logo.png" alt="FPT Logo" width={160} height={40} className="h-10 object-contain" />
         </div>
 
         <div className="w-full max-w-md animate-slide-in-right">
           <div className="text-center mb-8 flex flex-col items-center">
-            <img src="/fpt-logo.png" alt="FPT Logo" className="h-20 mb-6 object-contain hidden md:block" />
+            <Image src="/fpt-logo.png" alt="FPT Logo" width={280} height={80} className="h-20 mb-6 object-contain hidden md:block" />
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Create Account</h2>
             <p className="text-slate-500">Register as a Team Leader.</p>
           </div>

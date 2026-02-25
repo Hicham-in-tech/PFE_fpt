@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, GraduationCap } from "lucide-react";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Sidebar from "./Sidebar";
 
@@ -18,7 +19,7 @@ export default function MobileHeader({ role, userName }: MobileHeaderProps) {
       <header className="md:hidden bg-white border-b border-slate-200 p-4 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center gap-2">
           <div className="bg-white rounded-lg px-2 py-1 shadow-sm">
-            <img src="/fpt-logo.png" alt="FPT Logo" className="h-8 w-auto object-contain" />
+            <Image src="/fpt-logo.png" alt="FPT Logo" width={100} height={32} className="h-8 w-auto object-contain" />
           </div>
         </div>
         <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>

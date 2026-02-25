@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard,
@@ -13,8 +14,7 @@ import {
   LogOut,
   Shield,
   UserPlus,
-  BarChart3,
-  GraduationCap
+  BarChart3
 } from "lucide-react";
 
 interface NavItem {
@@ -74,7 +74,7 @@ export default function Sidebar({ role, userName, isMobile = false }: SidebarPro
     <aside className={`w-64 bg-slate-900 text-slate-300 flex flex-col ${isMobile ? 'h-full' : 'min-h-screen sticky top-0'}`}>
       <div className="p-4 border-b border-slate-800 bg-slate-950">
         <div className="bg-white rounded-xl p-3 mb-4 shadow-lg shadow-fpt-blue/20">
-          <img src="/fpt-logo.png" alt="FPT Logo" className="w-full h-auto object-contain" />
+          <Image src="/fpt-logo.png" alt="FPT Logo" width={200} height={60} className="w-full h-auto object-contain" />
         </div>
         <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
           <p className="text-sm font-medium text-white truncate">{userName}</p>

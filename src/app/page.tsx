@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Globe, ArrowRight, CheckCircle2, BookOpen, Users, ShieldCheck } from "lucide-react";
 
@@ -91,7 +92,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
-              <img src="/fpt-logo.png" alt="FPT Logo" className="h-12 w-auto object-contain" />
+              <Image src="/fpt-logo.png" alt="FPT Logo" width={150} height={48} className="h-12 w-auto object-contain" />
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
