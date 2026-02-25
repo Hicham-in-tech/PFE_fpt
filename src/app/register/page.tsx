@@ -67,7 +67,7 @@ export default function RegisterPage() {
         <div className="relative z-10 flex flex-col items-center animate-fade-in w-full">
           {/* Big centered logo */}
           <div className="bg-white p-5 rounded-2xl shadow-2xl mb-10">
-            <Image src="/fpt-logo.png" alt="FPT Logo" width={200} height={96} style={{ width: 'auto', height: '96px' }} className="object-contain" priority />
+            <Image src="http://ene.fpt.ac.ma/logo3_new3%5B172%5D.png" alt="FPT Logo" width={200} height={96} style={{ width: 'auto', height: '96px' }} className="object-contain" priority />
           </div>
           
           <h2 className="text-4xl font-extrabold leading-tight mb-6 animate-slide-up">
@@ -97,12 +97,12 @@ export default function RegisterPage() {
       <div className="flex-1 flex items-center justify-center p-6 md:p-12 relative">
         {/* Mobile Header */}
         <div className="absolute top-6 left-6 md:hidden flex items-center gap-2">
-          <Image src="/fpt-logo.png" alt="FPT Logo" width={160} height={40} style={{ width: 'auto', height: '40px' }} className="object-contain" />
+          <Image src="http://ene.fpt.ac.ma/logo3_new3%5B172%5D.png" alt="FPT Logo" width={160} height={40} style={{ width: 'auto', height: '40px' }} className="object-contain" />
         </div>
 
         <div className="w-full max-w-md animate-slide-in-right">
           <div className="text-center mb-8 flex flex-col items-center">
-            <Image src="/fpt-logo.png" alt="FPT Logo" width={280} height={80} style={{ width: 'auto', height: '80px' }} className="object-contain mb-6 hidden md:block" />
+            <Image src="http://ene.fpt.ac.ma/logo3_new3%5B172%5D.png" alt="FPT Logo" width={280} height={80} style={{ width: 'auto', height: '80px' }} className="object-contain mb-6 hidden md:block" />
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Create Account</h2>
             <p className="text-slate-500">Register as a Team Leader.</p>
           </div>
