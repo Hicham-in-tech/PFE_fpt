@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import { ArrowRight, BookOpen, Users } from "lucide-react";
 
@@ -173,7 +173,7 @@ export default function LoginPage() {
                   )}
                 </Button>
                 <p className="text-sm text-center text-slate-500">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link href="/register" className="text-fpt-blue font-semibold hover:text-fpt-green transition-colors">
                     Register here
                   </Link>

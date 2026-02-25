@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Globe, ArrowRight, CheckCircle2, BookOpen, Users, ShieldCheck } from "lucide-react";
+import { GraduationCap, Globe, ArrowRight, BookOpen, Users, ShieldCheck } from "lucide-react";
 
 type Lang = "en" | "fr" | "ar";
 
