@@ -26,6 +26,7 @@ export const teamMemberSchema = z.object({
   githubLink: z.string().url("Invalid URL").optional().or(z.literal("")),
   linkedinLink: z.string().url("Invalid URL").optional().or(z.literal("")),
   phoneNumber: z.string().optional(),
+  photo: z.string().optional(),
 });
 
 export const projectSchema = z.object({

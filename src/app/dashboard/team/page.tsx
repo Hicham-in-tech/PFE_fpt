@@ -19,6 +19,7 @@ interface TeamMember {
   githubLink?: string;
   linkedinLink?: string;
   phoneNumber?: string;
+  photo?: string;
 }
 
 interface Team {
@@ -33,7 +34,7 @@ interface Team {
 // Blank member template
 const blankMember = () => ({
   firstName: "", lastName: "", cin: "", cne: "",
-  memberEmail: "", githubLink: "", linkedinLink: "", phoneNumber: "",
+  memberEmail: "", githubLink: "", linkedinLink: "", phoneNumber: "", photo: "",
 });
 
 export default function TeamPage() {
@@ -123,6 +124,7 @@ export default function TeamPage() {
           cin: leaderInfo.cin, cne: leaderInfo.cne,
           email: leaderInfo.memberEmail, githubLink: leaderInfo.githubLink,
           linkedinLink: leaderInfo.linkedinLink, phoneNumber: leaderInfo.phoneNumber,
+          photo: leaderInfo.photo,
         }),
       });
 
@@ -150,6 +152,7 @@ export default function TeamPage() {
           cin: newMember.cin, cne: newMember.cne,
           email: newMember.memberEmail, githubLink: newMember.githubLink,
           linkedinLink: newMember.linkedinLink, phoneNumber: newMember.phoneNumber,
+          photo: newMember.photo,
         }),
       });
       const data = await res.json();
@@ -182,6 +185,7 @@ export default function TeamPage() {
       cin: m.cin || "", cne: m.cne || "",
       memberEmail: m.email || "", githubLink: m.githubLink || "",
       linkedinLink: m.linkedinLink || "", phoneNumber: m.phoneNumber || "",
+      photo: m.photo || "",
     });
   };
 
@@ -198,6 +202,7 @@ export default function TeamPage() {
           cin: editData.cin, cne: editData.cne,
           email: editData.memberEmail, githubLink: editData.githubLink,
           linkedinLink: editData.linkedinLink, phoneNumber: editData.phoneNumber,
+          photo: editData.photo,
         }),
       });
       const data = await res.json();
@@ -219,31 +224,57 @@ export default function TeamPage() {
   }: {
     data: ReturnType<typeof blankMember>;
     onChange: (key: string, val: string) => void;
-  }) => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {[
-        { key: "firstName", label: "First Name *", required: true },
-        { key: "lastName", label: "Last Name *", required: true },
-        { key: "cin", label: "CIN" },
-        { key: "cne", label: "CNE" },
-        { key: "memberEmail", label: "Email", type: "email" },
-        { key: "phoneNumber", label: "Phone" },
-        { key: "githubLink", label: "GitHub", placeholder: "https://github.com/..." },
-        { key: "linkedinLink", label: "LinkedIn", placeholder: "https://linkedin.com/in/..." },
-      ].map(({ key, label, required, type, placeholder }) => (
-        <div key={key} className="space-y-2">
-          <Label>{label}</Label>
-          <Input
-            type={type || "text"}
-            required={required}
-            placeholder={placeholder}
-            value={(data as Record<string, string>)[key]}
-            onChange={(e) => onChange(key, e.target.value)}
-          />
+  }) => {
+    const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      if (file.size > 2 * 1024 * 1024) { alert("Image must be under 2MB"); return; }
+      const reader = new FileReader();
+      reader.onloadend = () => onChange("photo", reader.result as string);
+      reader.readAsDataURL(file);
+    };
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            { key: "firstName", label: "First Name *", required: true },
+            { key: "lastName", label: "Last Name *", required: true },
+            { key: "cin", label: "CIN" },
+            { key: "cne", label: "CNE" },
+            { key: "memberEmail", label: "Email", type: "email" },
+            { key: "phoneNumber", label: "Phone" },
+            { key: "githubLink", label: "GitHub", placeholder: "https://github.com/..." },
+            { key: "linkedinLink", label: "LinkedIn", placeholder: "https://linkedin.com/in/..." },
+          ].map(({ key, label, required, type, placeholder }) => (
+            <div key={key} className="space-y-2">
+              <Label>{label}</Label>
+              <Input
+                type={type || "text"}
+                required={required}
+                placeholder={placeholder}
+                value={(data as Record<string, string>)[key]}
+                onChange={(e) => onChange(key, e.target.value)}
+              />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-  );
+        <div className="space-y-2">
+          <Label>Member Photo</Label>
+          <div className="flex items-center gap-4">
+            {data.photo ? (
+              <img src={data.photo} alt="Preview" className="w-16 h-16 rounded-full object-cover border-2 border-fpt-blue flex-shrink-0" />
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-[10px] text-center flex-shrink-0">No photo</div>
+            )}
+            <div>
+              <Input type="file" accept="image/*" onChange={handlePhotoChange} className="cursor-pointer" />
+              <p className="text-xs text-muted-foreground mt-1">Optional · JPEG/PNG · max 2MB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -367,15 +398,31 @@ export default function TeamPage() {
                           <TableRow key={member.id} className="bg-blue-50">
                             <TableCell>{i + 1}</TableCell>
                             <TableCell colSpan={7}>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
-                                <Input placeholder="First Name *" required value={editData.firstName} onChange={(e) => setEditData(p => ({ ...p, firstName: e.target.value }))} />
-                                <Input placeholder="Last Name *" required value={editData.lastName} onChange={(e) => setEditData(p => ({ ...p, lastName: e.target.value }))} />
-                                <Input placeholder="CIN" value={editData.cin} onChange={(e) => setEditData(p => ({ ...p, cin: e.target.value }))} />
-                                <Input placeholder="CNE" value={editData.cne} onChange={(e) => setEditData(p => ({ ...p, cne: e.target.value }))} />
-                                <Input placeholder="Email" type="email" value={editData.memberEmail} onChange={(e) => setEditData(p => ({ ...p, memberEmail: e.target.value }))} />
-                                <Input placeholder="Phone" value={editData.phoneNumber} onChange={(e) => setEditData(p => ({ ...p, phoneNumber: e.target.value }))} />
-                                <Input placeholder="GitHub" value={editData.githubLink} onChange={(e) => setEditData(p => ({ ...p, githubLink: e.target.value }))} />
-                                <Input placeholder="LinkedIn" value={editData.linkedinLink} onChange={(e) => setEditData(p => ({ ...p, linkedinLink: e.target.value }))} />
+                              <div className="space-y-2">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+                                  <Input placeholder="First Name *" required value={editData.firstName} onChange={(e) => setEditData(p => ({ ...p, firstName: e.target.value }))} />
+                                  <Input placeholder="Last Name *" required value={editData.lastName} onChange={(e) => setEditData(p => ({ ...p, lastName: e.target.value }))} />
+                                  <Input placeholder="CIN" value={editData.cin} onChange={(e) => setEditData(p => ({ ...p, cin: e.target.value }))} />
+                                  <Input placeholder="CNE" value={editData.cne} onChange={(e) => setEditData(p => ({ ...p, cne: e.target.value }))} />
+                                  <Input placeholder="Email" type="email" value={editData.memberEmail} onChange={(e) => setEditData(p => ({ ...p, memberEmail: e.target.value }))} />
+                                  <Input placeholder="Phone" value={editData.phoneNumber} onChange={(e) => setEditData(p => ({ ...p, phoneNumber: e.target.value }))} />
+                                  <Input placeholder="GitHub" value={editData.githubLink} onChange={(e) => setEditData(p => ({ ...p, githubLink: e.target.value }))} />
+                                  <Input placeholder="LinkedIn" value={editData.linkedinLink} onChange={(e) => setEditData(p => ({ ...p, linkedinLink: e.target.value }))} />
+                                </div>
+                                <div className="flex items-center gap-3 pt-1">
+                                  <Label className="text-xs whitespace-nowrap text-slate-600">Update Photo:</Label>
+                                  {editData.photo && (
+                                    <img src={editData.photo} alt="" className="w-8 h-8 rounded-full object-cover border" />
+                                  )}
+                                  <Input type="file" accept="image/*" className="h-7 text-xs cursor-pointer" onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+                                    if (file.size > 2 * 1024 * 1024) { alert("Max 2MB"); return; }
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => setEditData(p => ({ ...p, photo: reader.result as string }));
+                                    reader.readAsDataURL(file);
+                                  }} />
+                                </div>
                               </div>
                             </TableCell>
                             <TableCell>
@@ -393,7 +440,18 @@ export default function TeamPage() {
                           // ── NORMAL ROW ──
                           <TableRow key={member.id}>
                             <TableCell>{i + 1}</TableCell>
-                            <TableCell className="font-medium">{member.firstName} {member.lastName}</TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                {member.photo ? (
+                                  <img src={member.photo} alt="" className="w-8 h-8 rounded-full object-cover flex-shrink-0 border" />
+                                ) : (
+                                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-500 flex-shrink-0">
+                                    {member.firstName[0]}{member.lastName[0]}
+                                  </div>
+                                )}
+                                <span className="font-medium">{member.firstName} {member.lastName}</span>
+                              </div>
+                            </TableCell>
                             <TableCell>{member.cin || "—"}</TableCell>
                             <TableCell>{member.cne || "—"}</TableCell>
                             <TableCell>{member.email || "—"}</TableCell>

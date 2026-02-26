@@ -45,6 +45,7 @@ export async function PUT(request: NextRequest) {
         githubLink: validation.data.githubLink || null,
         linkedinLink: validation.data.linkedinLink || null,
         phoneNumber: validation.data.phoneNumber || null,
+        ...(validation.data.photo ? { photo: validation.data.photo } : {}),
       },
     });
 
@@ -92,6 +93,7 @@ export async function POST(request: NextRequest) {
         githubLink: validation.data.githubLink || null,
         linkedinLink: validation.data.linkedinLink || null,
         phoneNumber: validation.data.phoneNumber || null,
+        photo: validation.data.photo || null,
       },
     });
 

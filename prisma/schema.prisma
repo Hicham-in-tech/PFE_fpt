@@ -78,6 +78,7 @@ model TeamMember {
   githubLink   String? @map("github_link")
   linkedinLink String? @map("linkedin_link")
   phoneNumber  String? @map("phone_number")
+  photo        String? @db.LongText @map("photo")
 
   // Relations
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
