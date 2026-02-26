@@ -14,7 +14,8 @@ import {
   LogOut,
   Shield,
   UserPlus,
-  BarChart3
+  BarChart3,
+  KeyRound
 } from "lucide-react";
 
 interface NavItem {
@@ -41,7 +42,8 @@ export default function Sidebar({ role, userName, isMobile = false }: SidebarPro
       { label: "My Team", href: "/dashboard/team", icon: <Users className="h-5 w-5" /> },
       { label: "Projects", href: "/dashboard/projects", icon: <FolderKanban className="h-5 w-5" /> },
       { label: "Remarks", href: "/dashboard/remarks", icon: <Eye className="h-5 w-5" /> },
-      { label: "Chat", href: "/dashboard/chat", icon: <MessageSquare className="h-5 w-5" /> }
+      { label: "Chat", href: "/dashboard/chat", icon: <MessageSquare className="h-5 w-5" /> },
+      { label: "Change Password", href: "/dashboard/change-password", icon: <KeyRound className="h-5 w-5" /> }
     );
   } else if (role === "COORDINATOR") {
     navItems.push(
@@ -51,7 +53,8 @@ export default function Sidebar({ role, userName, isMobile = false }: SidebarPro
       { label: "Projects", href: "/coordinator/projects", icon: <FolderKanban className="h-5 w-5" /> },
       { label: "Observations", href: "/coordinator/observations", icon: <Eye className="h-5 w-5" /> },
       { label: "Evaluations", href: "/coordinator/evaluations", icon: <Star className="h-5 w-5" /> },
-      { label: "Chat", href: "/coordinator/chat", icon: <MessageSquare className="h-5 w-5" /> }
+      { label: "Chat", href: "/coordinator/chat", icon: <MessageSquare className="h-5 w-5" /> },
+      { label: "Change Password", href: "/coordinator/change-password", icon: <KeyRound className="h-5 w-5" /> }
     );
   } else if (role === "SUPER_ADMIN") {
     navItems.push(
@@ -60,7 +63,8 @@ export default function Sidebar({ role, userName, isMobile = false }: SidebarPro
       { label: "Create Coordinator", href: "/admin/coordinators", icon: <UserPlus className="h-5 w-5" /> },
       { label: "All Teams", href: "/admin/teams", icon: <Shield className="h-5 w-5" /> },
       { label: "All Projects", href: "/admin/projects", icon: <FolderKanban className="h-5 w-5" /> },
-      { label: "Statistics", href: "/admin/stats", icon: <BarChart3 className="h-5 w-5" /> }
+      { label: "Statistics", href: "/admin/stats", icon: <BarChart3 className="h-5 w-5" /> },
+      { label: "Change Password", href: "/admin/change-password", icon: <KeyRound className="h-5 w-5" /> }
     );
   }
 
