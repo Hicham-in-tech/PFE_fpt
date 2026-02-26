@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { projectSchema } from "@/lib/validations";
 
+export const dynamic = 'force-dynamic';
+
 // GET - Fetch projects
 export async function GET(request: NextRequest) {
   try {

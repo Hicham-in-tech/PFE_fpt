@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { evaluationSchema } from "@/lib/validations";
 
+export const dynamic = 'force-dynamic';
+
 // POST - Give evaluation score
 export async function POST(request: NextRequest) {
   try {

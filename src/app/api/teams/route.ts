@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { teamSchema } from "@/lib/validations";
 
+export const dynamic = 'force-dynamic';
+
 // GET - Fetch teams (role-based)
 export async function GET(request: NextRequest) {
   try {

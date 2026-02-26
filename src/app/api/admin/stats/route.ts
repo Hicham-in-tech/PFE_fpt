@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 // GET - System overview stats (Super Admin only)
 export async function GET(request: NextRequest) {
   try {

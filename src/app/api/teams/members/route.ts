@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { teamMemberSchema } from "@/lib/validations";
 
+export const dynamic = 'force-dynamic';
+
 // PUT - Edit an existing member
 export async function PUT(request: NextRequest) {
   try {

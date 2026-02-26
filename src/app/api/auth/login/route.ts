@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { verifyPassword, generateToken } from "@/lib/auth";
+
+export const dynamic = 'force-dynamic';
 import { loginSchema } from "@/lib/validations";
 
 export async function POST(request: NextRequest) {

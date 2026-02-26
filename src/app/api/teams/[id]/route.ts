@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 // DELETE - Remove a team (Coordinator who owns it, or Super Admin)
 export async function DELETE(
   request: NextRequest,

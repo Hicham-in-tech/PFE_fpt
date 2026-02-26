@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { messageSchema } from "@/lib/validations";
 
+export const dynamic = 'force-dynamic';
+
 // GET - Get messages for a team
 export async function GET(request: NextRequest) {
   try {
