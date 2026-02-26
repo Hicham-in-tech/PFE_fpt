@@ -181,6 +181,10 @@ export default function LoginPage() {
               </CardFooter>
             </form>
           </Card>
+          <p className="text-center text-xs text-slate-400 mt-4">
+            Developed by{" "}
+            <span className="font-semibold text-slate-500">Hicham Boudouch</span>
+          </p>
         </div>
       </div>
     </div>

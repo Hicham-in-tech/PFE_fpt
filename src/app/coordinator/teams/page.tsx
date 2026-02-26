@@ -42,6 +42,7 @@ export default function AllTeamsPage() {
 
   // View modal
   const [viewTeam, setViewTeam] = useState<Team | null>(null);
+  const [lightboxPhoto, setLightboxPhoto] = useState<string | null>(null);
 
   // Message modal
   const [msgTeam, setMsgTeam] = useState<Team | null>(null);
@@ -292,7 +293,7 @@ export default function AllTeamsPage() {
                           <div className="flex items-center gap-2">
                             {m.photo ? (
                               // eslint-disable-next-line @next/next/no-img-element
-                              <img src={m.photo} alt="" className="w-9 h-9 rounded-full object-cover flex-shrink-0 border" />
+                              <img src={m.photo} alt="" className="w-9 h-9 rounded-full object-cover flex-shrink-0 border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => setLightboxPhoto(m.photo!)} />
                             ) : (
                               <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-500 flex-shrink-0">
                                 {m.firstName[0]}{m.lastName[0]}
@@ -320,6 +321,21 @@ export default function AllTeamsPage() {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ── PHOTO LIGHTBOX ── */}
+      {lightboxPhoto && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 cursor-zoom-out"
+          onClick={() => setLightboxPhoto(null)}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={lightboxPhoto}
+            alt="Member photo"
+            className="max-h-[80vh] max-w-[80vw] rounded-xl shadow-2xl object-contain"
+          />
         </div>
       )}
 
