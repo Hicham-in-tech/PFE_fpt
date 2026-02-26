@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import bcrypt from "bcryptjs";
-import { getSession } from "@/lib/auth";
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const userId = parseInt(request.headers.get("x-user-id") || "0");
+    if (!userId) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
@@ -21,7 +20,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "New password must be at least 6 characters" }, { status: 400 });
     }
 
-    const user = await prisma.user.findUnique({ where: { id: session.userId } });
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -32,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     const hashed = await bcrypt.hash(newPassword, 12);
-    await prisma.user.update({ where: { id: session.userId }, data: { password: hashed } });
+    await prisma.user.update({ where: { id: userId }, data: { password: hashed } });
 
     return NextResponse.json({ message: "Password changed successfully" });
   } catch (error) {
