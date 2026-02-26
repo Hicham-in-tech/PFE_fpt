@@ -291,6 +291,7 @@ export default function AllTeamsPage() {
                             <TableCell className="font-medium">
                           <div className="flex items-center gap-2">
                             {m.photo ? (
+                              // eslint-disable-next-line @next/next/no-img-element
                               <img src={m.photo} alt="" className="w-9 h-9 rounded-full object-cover flex-shrink-0 border" />
                             ) : (
                               <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-500 flex-shrink-0">

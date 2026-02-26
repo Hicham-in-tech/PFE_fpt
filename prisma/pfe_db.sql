@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS team_members (
   github_link   VARCHAR(191),
   linkedin_link VARCHAR(191),
   phone_number  VARCHAR(191),
+  photo         LONGTEXT,
 
   PRIMARY KEY (id),
   KEY team_members_team_id_fkey (team_id),

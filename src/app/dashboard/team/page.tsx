@@ -262,6 +262,7 @@ export default function TeamPage() {
           <Label>Member Photo</Label>
           <div className="flex items-center gap-4">
             {data.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img src={data.photo} alt="Preview" className="w-16 h-16 rounded-full object-cover border-2 border-fpt-blue flex-shrink-0" />
             ) : (
               <div className="w-16 h-16 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-[10px] text-center flex-shrink-0">No photo</div>
@@ -412,6 +413,7 @@ export default function TeamPage() {
                                 <div className="flex items-center gap-3 pt-1">
                                   <Label className="text-xs whitespace-nowrap text-slate-600">Update Photo:</Label>
                                   {editData.photo && (
+                                    // eslint-disable-next-line @next/next/no-img-element
                                     <img src={editData.photo} alt="" className="w-8 h-8 rounded-full object-cover border" />
                                   )}
                                   <Input type="file" accept="image/*" className="h-7 text-xs cursor-pointer" onChange={(e) => {
@@ -443,6 +445,7 @@ export default function TeamPage() {
                             <TableCell>
                               <div className="flex items-center gap-2">
                                 {member.photo ? (
+                                  // eslint-disable-next-line @next/next/no-img-element
                                   <img src={member.photo} alt="" className="w-8 h-8 rounded-full object-cover flex-shrink-0 border" />
                                 ) : (
                                   <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-500 flex-shrink-0">
